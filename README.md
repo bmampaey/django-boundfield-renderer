@@ -35,7 +35,7 @@ class MyField(forms.Field):
 The file *mytemplates/char_field.html* could be as simple as this:
 ```html
 <label for={{ id }}>{{label}}
-<input type="text" id={{ id }} name={{ name }} value={{ value }}>
+<input type="text" id="{{ id }}" name="{{ name }}" value="{{ value }}">
 </label>
 <p>{{help_text}}</p>
 <ul>
@@ -86,7 +86,7 @@ def add_class(context):
 	return context
 
 @registry.register(get_template('mytemplates/my_field.html').render, add_class)
-class MySuperField(MyField):
+class MySuperField(MyField):git config --global user.name
 	pass
 ```
 
@@ -115,9 +115,12 @@ In the first case, the renderer used will be the one we registered for the CharF
 If no renderer is found, a NotImplementedError is raised.
 
 ## *renderfield* templatetag
-The renderfield templatetag can take a single parameter, that is a registry object or the full dotted path to a registry object.
+The renderfield templatetag (actually a filter) take a boundfield as the input parameter. It can also take as optional parameter a registry object or the full dotted path to a registry object.
 
-If no parameter is given, it will use the default registry as defined in the settings. For our example this would be:
+If no registry is specified, it will use the default registry as defined in the settings as FORM_RENDERER_DEFAULT_REGISTRY.
+
+
+For our example this would be:
 ```python
 FORM_RENDERER_DEFAULT_REGISTRY = 'path.to.my_registry.registry'
 ```
