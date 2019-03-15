@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Ignore apple files
+.DS_Store
+
+# Ignore Djnago files
+db.sqlite3
