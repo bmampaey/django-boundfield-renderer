@@ -1,0 +1,4 @@
+<tr class="{{ boundfield.css_classes }}">
+	<th>{% if label %}{ boundfield.label_tag }}{% endif %}</th>
+	<td>{% include 'fromrenderer/default/errors.html' errors=errors%}{{ boundfield }}{% if help_text %}<br><span class="helptext">{{ help_text }}</span>{% endif %}</td>
+</tr>

@@ -1,3 +1,4 @@
+import importlib
 from django import template
 from django.conf import settings
 
@@ -5,15 +6,36 @@ register = template.Library()
 
 @register.filter(name = 'render')
 def render(boundfield, registry = None):
-	'''Render a form boundfield to html using the formrender library'''
+	'''
+	Render a boundfield to html using the specified renderer registry
+	
+	The context dict contains the following key/values:
+		form: The form the field belongs to
+		boundfield: The bound field itself
+		widgets: The widget instances of the field
+		name: The name HTML attribute for the field
+		value: The current value of the field
+		label: The label of the field
+		id: The id for the label of the field
+		help_text: The help_text of the field
+		errors: The list of Validation errors for the field
+		disabled: True if the field is disabled
+		is_hidden: True if the field is hidden
+		required: True if the field is required
+	'''
 	
 	# Get the registry
 	if registry is None:
-		registry = settings.registry
+		registry = settings.FORM_RENDERER_DEFAULT_REGISTRY
 	
-	# TODO check how to import the registry from string
+	# If the registry is a path, resolve it
 	if isinstance(registry, str):
-		raise NotImplementedError('string with the path to the registry')
+		try:
+			module_name, registry_name = registry.rsplit('.', 1)
+			module = importlib.import_module(module_name)
+			registry = getattr(module, methoregistry_named_name)
+		except Exception as why:
+			raise ValueError('Could not find registry "%s"', registry) from why
 	
 	# Get the approriate renderer
 	renderer, context_modifier = registry[boundfield.field]
@@ -34,4 +56,4 @@ def render(boundfield, registry = None):
 		'required': boundfield.field.required,
 	}
 	
-	return renderer.render(context_modifier(context))
+	return renderer(context_modifier(context))
