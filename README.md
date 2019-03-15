@@ -4,7 +4,7 @@ A rendering engine for Django forms using templatetags
 ## Preamble
 There are already many libraries to render Django form in templates, including the default Form methods as_p(), as_ul(), as_table(). Unfortunately, none of them (that I have encountered at least) apply strictly the concept of separation of form and function, or business logic from presentation, etc. Django has made a step into the right direction by using template for the widgets, but the entirety of a field rendering is still partially done in python code. For example, if the developer wishes to put the label after the checkbox, he still has to write python, instead of redefining a template.
 
-This library defines one or more registry, that associate a rendering function (called renderer) for each Form Field class. That rendering function is made available through the templatetag renderfield.
+This library defines one or more registry, that associate a rendering function (called renderer) for each Form Field class. That rendering function is made available through the templatetag render.
 
 ## Basic steps to render a Django Form
 
@@ -50,7 +50,7 @@ The file *mytemplates/char_field.html* could be as simple as this:
 	<body>
 		<form>
 			{% for field in form %}
-			{{ field|renderfield:'path.to.my_registry.registry' }}
+			{{ field|render:'path.to.my_registry.registry' }}
 			{% endfor %}
 			<input type="submit" value="Send">
 		</form>
@@ -63,13 +63,13 @@ A renderer function does not have to be a template render method, it can be any 
 
   * __form__: The form the field belongs to
   * __boundfield__: The bound field itself
-  * __widget__: The widget instance of the field
+  * __widgets__: The widget instances of the field
   * __name__: The name HTML attribute for the field
   * __value__: The current value of the field
   * __label__: The label of the field
   * __id__: The id for the label of the field
-  * __errors__: The list of Validation errors for the field
   * __help_text__: The help_text of the field
+  * __errors__: The list of Validation errors for the field
   * __disabled__: True if the field is disabled
   * __is_hidden__: True if the field is hidden
   * __required__: True if the field is required
@@ -114,8 +114,8 @@ In the first case, the renderer used will be the one we registered for the CharF
 
 If no renderer is found, a NotImplementedError is raised.
 
-## *renderfield* templatetag
-The renderfield templatetag (actually a filter) take a boundfield as the input parameter. It can also take as optional parameter a registry object or the full dotted path to a registry object.
+## *render* templatetag
+The render templatetag (actually a filter) take a boundfield as the input parameter. It can also take as optional parameter a registry object or the full dotted path to a registry object.
 
 If no registry is specified, it will use the default registry as defined in the settings as FORM_RENDERER_DEFAULT_REGISTRY.
 
