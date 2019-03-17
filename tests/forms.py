@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from form_fields import MyCharField, MyField, MySuperField
 
 class TestForm(forms.Form):
 	'''Form to test the rendering of all fields types'''
@@ -36,6 +37,9 @@ class TestForm(forms.Form):
 	helptext = forms.CharField(help_text = 'Some help text')
 	initial = forms.CharField(initial = 'Some initial value')
 	label = forms.CharField(label = 'Some specific label')
+	mycharfield = MyCharField(initial='Spanish Inquisition')
+	myfield = MyField()
+	mysuperfield = MySuperField()
 	
 	def __init__(self, *args, required = False, disabled = False, with_errors = False, **kwargs):
 		super().__init__(*args, **kwargs)

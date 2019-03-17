@@ -1,7 +1,6 @@
 import importlib
 from django import template
 from django.conf import settings
-from django.core.exceptions import NON_FIELD_ERRORS
 
 register = template.Library()
 
@@ -12,8 +11,7 @@ def render(boundfield, registry = None, **kwargs):
 	
 	The context dict contains the following key/values:
 		form: The form the field belongs to
-		boundfield: The bound field itself
-		widgets: The widget instances of the field
+		boundfield: The boundfield itself
 		html_name: The HTML name attribute for the field
 		value: The current value of the field
 		label: The label of the field
@@ -27,7 +25,7 @@ def render(boundfield, registry = None, **kwargs):
 	
 	# Get the registry
 	if registry is None:
-		registry = settings.FORM_RENDERER_DEFAULT_REGISTRY
+		registry = settings.getattr('FORM_RENDERER_DEFAULT_REGISTRY', 'formrenderer.registries.default')
 	
 	# If the registry is a path, resolve it
 	if isinstance(registry, str):
@@ -45,7 +43,6 @@ def render(boundfield, registry = None, **kwargs):
 	context = {
 		'form': boundfield.form,
 		'boundfield': boundfield,
-		'widgets': boundfield.subwidgets,
 		'html_name': boundfield.html_name,
 		'value': boundfield.value(),
 		'label': boundfield.label,
@@ -65,13 +62,3 @@ def render(boundfield, registry = None, **kwargs):
 	context.update(kwargs)
 	
 	return renderer(context)
-
-@register.filter
-def hidden_fields_errors(form):
-	'''Return a dict with the form's hidden field errors'''
-	errors = dict()
-	
-	for boundfield in form.hidden_fields():
-		errors[boundfield.name] = boundfield.errors
-	
-	return errors

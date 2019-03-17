@@ -4,7 +4,7 @@
 	{% for error in non_field_errors %}
 	<li>{{ error }}</li>
 	{% endfor %}
-	{% for field, errors in hidden_fields_errors %}
+	{% for field, errors in hidden_fields_errors.items %}
 	{% for error in errors %}
 	<li>(Hidden field {{ field }}) {{ error }}</li>
 	{% endfor %}

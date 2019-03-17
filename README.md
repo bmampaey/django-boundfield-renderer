@@ -63,7 +63,6 @@ A renderer function does not have to be a template render method, it can be any 
 
   * __form__: The form the field belongs to
   * __boundfield__: The bound field itself
-  * __widgets__: The widget instances of the field
   * __name__: The name HTML attribute for the field
   * __value__: The current value of the field
   * __label__: The label of the field
@@ -79,14 +78,14 @@ A renderer function does not have to be a template render method, it can be any 
 When registering a renderer for a Form Field, it is possible to specify a context modifier function. This function will receive the context as the only parameter, and is suppose to return it modified. For example:
 
 ```python
-# Let's add a some class to the widget attrs
+# Let's add a some class to MyField
 
 def add_class(context):
-	context['widget'].attrs.class = 'bowtie'
+	context['css_classes'] = 'bowtie'
 	return context
 
 @registry.register(get_template('mytemplates/my_field.html').render, add_class)
-class MySuperField(MyField):git config --global user.name
+class MySuperField(MyField):
 	pass
 ```
 

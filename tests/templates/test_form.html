@@ -4,21 +4,29 @@
 		<title>Test form renderer</title>
 	</head>
 	<body>
-		<a href="{% url 'default' %}">Default</a>
-		<a href="{% url 'required' %}">Required</a>
-		<a href="{% url 'disabled' %}">Disabled</a>
-		<a href="{% url 'with_errors' %}">With errors</a>
-		
-		<form method="POST">
-			{% csrf_token %}
-			<table>
-			{{ form }}
-			</table>
-			<hr>
-			<table>
-			{% include 'default/form.html' with form=form only %}
-			</table>
-			<input type="submit" value="submit">
-		</form>
+		<div>
+			<a href="{% url 'default' %}">Default</a>
+			<a href="{% url 'required' %}">Required</a>
+			<a href="{% url 'disabled' %}">Disabled</a>
+			<a href="{% url 'with_errors' %}">With errors</a>
+		</div>
+		<span style="display: inline-block; vertical-align:top;">
+			<form method="POST">
+				{% csrf_token %}
+				<table><tbody>
+				{{ form }}
+				</tbody></table>
+				<input type="submit" value="submit">
+			</form>
+		</span>
+		<span style="display: inline-block; vertical-align:top;">
+			<form method="POST">
+				{% csrf_token %}
+				<table><tbody>
+				{% include 'default/form.html' with form=form only %}
+				</tbody></table>
+				<input type="submit" value="submit">
+			</form>
+		</span>
 	</body>
 </html>

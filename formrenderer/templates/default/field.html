@@ -1,6 +1,6 @@
 {% spaceless %}
 <tr{% if boundfield.css_classes %}class="{{ boundfield.css_classes }}"{% endif %}>
 	<th>{% if label %}{{ boundfield.label_tag }}{% endif %}</th>
-	<td>{% include 'default/errors.html' with errors=errors only %}{{ boundfield }}{% if help_text %}<br><span class="helptext">{{ help_text }}</span>{% endif %}{% if not last_field %}</td>
+	<td>{{ boundfield.errors }}{{ boundfield }}{% if help_text %}<br><span class="helptext">{{ help_text }}</span>{% endif %}{% if not last_field %}</td>
 </tr>{% endif %}
 {% endspaceless %}

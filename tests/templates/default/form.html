@@ -1,4 +1,5 @@
 {% load formrenderer %}
+{% load toperrors %}
 
 {# Add the non field errors and the hidden field errors #}
 {% include 'default/top_errors.html' with non_field_errors=form.non_field_errors hidden_fields_errors=form|hidden_fields_errors only %}
