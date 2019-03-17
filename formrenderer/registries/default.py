@@ -1,6 +1,6 @@
 from django import forms
 from django.template.loader import get_template
-from formrenderer import RendererRegistry
+from ..registry import RendererRegistry
 
 renderer_registry = RendererRegistry()
 

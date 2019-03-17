@@ -33,15 +33,24 @@ class RendererRegistry:
 	
 	def register(self, *args, renderer, context_modifier = None):
 		'''
-		A Form Field class decorator. Must be passed the renderer method explicitly
-		as a key word argument. Usage examples:
+		Register a Form Field class into the registry.
+		The renderer and context_modifier functions must be passed as keyword arguments.
+		
+		Can be called directly like so:
+		renderer_registry.register(forms.CharField, forms.IntegerField, MyField, ... , renderer=my_renderer, context_modifier=my_context_modifier)
+		
+		Or as a decorator like so:
+		
 		'''
 		
-		for form_field_class in args:
-			self.registerer(renderer)(form_field_class)
-	
-	def registerer(self, renderer = None):
-		def _register(form_field_class):
-			self.registry[form_field_class] = renderer
+		if args: # register is called directly
+			for form_field_class in args:
+				self.registry[form_field_class] = renderer, context_modifier
+		else: # register is called as a decorator
+			return self._register(renderer, context_modifier)
+		
+	def _register(self, renderer, context_modifier):
+		def registerer(form_field_class):
+			self.registry[form_field_class] = renderer, context_modifier
 			return form_field_class
-		return _register
+		return registerer

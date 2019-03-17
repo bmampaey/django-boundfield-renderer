@@ -1,21 +1,17 @@
 {% load formrenderer %}
 
-<tr><td colspan="2">
-{# Form errors #}
-{% include 'fromrenderer/default/errors.html' errors=form.non_field_errors error_class='nonfield' only %}
-
-{# Hidden field errors #}
-{% for boundfield in form.hidden_fields %}
-(Hidden field {{ boundfield.html_name }}) {% include 'fromrenderer/default/errors.html' errors=boundfield.errors only %}
-{% endfor %}
-</td></tr>
+{# Add the non field errors and the hidden field errors #}
+{% include 'default/top_errors.html' with non_field_errors=form.non_field_errors hidden_fields_errors=form|hidden_fields_errors only %}
 
 {# Render visible fields with our templatetag #}
 {% for boundfield in form.visible_fields %}
-{{ boundfield|render:'formrenderer.registries.default' }}
+{% render boundfield 'formrenderer.registries.default' last_field=forloop.last %}
 {% endfor %}
 
 {# Render hidden fields #}
 {% for boundfield in form.hidden_fields %}
 {{ boundfield }}
 {% endfor %}
+{% if form.visible_fields %}
+</td></tr>
+{% endif %}

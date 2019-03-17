@@ -1,0 +1,14 @@
+{% spaceless %}
+{% if non_field_errors and hidden_fields_errors %}
+<tr><td colspan="2"><ul class="non_field_errors.error_class">
+	{% for error in non_field_errors %}
+	<li>{{ error }}</li>
+	{% endfor %}
+	{% for field, errors in hidden_fields_errors %}
+	{% for error in errors %}
+	<li>(Hidden field {{ field }}) {{ error }}</li>
+	{% endfor %}
+	{% endfor %}
+</ul></td></tr>
+{% endif %}
+{% endspaceless %}

@@ -12,7 +12,11 @@
 		<form method="POST">
 			{% csrf_token %}
 			<table>
-			{{form}}
+			{{ form }}
+			</table>
+			<hr>
+			<table>
+			{% include 'default/form.html' with form=form only %}
 			</table>
 			<input type="submit" value="submit">
 		</form>
