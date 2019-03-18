@@ -25,7 +25,7 @@ def render(boundfield, registry = None, **kwargs):
 	
 	# Get the registry
 	if registry is None:
-		registry = settings.getattr('FORM_RENDERER_DEFAULT_REGISTRY', 'formrenderer.registries.default')
+		registry = settings.getattr('DEFAULT_BOUNDFIELD_RENDERER_REGISTRY', 'formrenderer.registries.default')
 	
 	# If the registry is a path, resolve it
 	if isinstance(registry, str):
