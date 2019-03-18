@@ -6,7 +6,7 @@ def update_context(values):
 	class MyField(forms.Field):
 		pass
 	
-	The context dict that will be passed to my_renderer will have an item 'style': 'color: red;'
+	The context dict that will be passed to my_renderer will have an item ('style', 'color: red;')
 	'''
 	def context_updater(context):
 		context.update(values)

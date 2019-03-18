@@ -9,3 +9,13 @@
 	<th class="{{ css_classes }}">{{ label }}</th>
 	<td><input type="text" value="{{ value }}" {{ required }} {{ disabled }}> &#8592; This is my field !</td>
 <tr>
+{% if help_text %}
+<tr>
+	<td colspan="2"><small>{{help_text}}<small></td>
+</tr>
+{% endif %}
+{% if errors %}
+<tr>
+	<td colspan="2">{% include 'custom/error_list.html' with errors=errors %}</td>
+</tr>
+{% endif %}

@@ -5,7 +5,7 @@ from django.conf import settings
 register = template.Library()
 
 @register.simple_tag
-def render(boundfield, registry = None, **kwargs):
+def renderer(boundfield, registry = None, **kwargs):
 	'''
 	Render a boundfield to html using the specified renderer registry
 	
@@ -25,7 +25,7 @@ def render(boundfield, registry = None, **kwargs):
 	
 	# Get the registry
 	if registry is None:
-		registry = settings.getattr('DEFAULT_BOUNDFIELD_RENDERER_REGISTRY', 'formrenderer.registries.default')
+		registry = settings.getattr('DEFAULT_BOUNDFIELD_RENDERER_REGISTRY', 'boundfield_renderer.registries.default')
 	
 	# If the registry is a path, resolve it
 	if isinstance(registry, str):

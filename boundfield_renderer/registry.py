@@ -33,14 +33,16 @@ class RendererRegistry:
 	
 	def register(self, *args, renderer, context_modifier = None):
 		'''
-		Register a Form Field class into the registry.
+		Register a form field class into the registry.
 		The renderer and context_modifier functions must be passed as keyword arguments.
 		
 		Can be called directly like so:
-		renderer_registry.register(forms.CharField, forms.IntegerField, MyField, ... , renderer=my_renderer, context_modifier=my_context_modifier)
+		renderer_registry.register(forms.CharField, forms.IntegerField, ... , renderer=my_renderer, context_modifier=my_context_modifier)
 		
 		Or as a decorator like so:
-		
+		renderer_registry.register(renderer=my_renderer, context_modifier=my_context_modifier)
+		class MyField(forms.Field):
+			pass
 		'''
 		
 		if args: # register is called directly

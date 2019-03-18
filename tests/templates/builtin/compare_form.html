@@ -4,13 +4,15 @@
 		<title>Test form renderer</title>
 	</head>
 	<body>
-		<div>
+		<div style="padding: 1em 0;">
 			<a href="{% url 'default' %}">Default</a>
 			<a href="{% url 'required' %}">Required</a>
 			<a href="{% url 'disabled' %}">Disabled</a>
 			<a href="{% url 'with_errors' %}">With errors</a>
+			<a href="{% url 'with_initial' %}">With initial</a>
 		</div>
 		<span style="display: inline-block; vertical-align:top;">
+			<h1>Form rendered by Django</h1>
 			<form method="POST">
 				{% csrf_token %}
 				<table><tbody>
@@ -20,10 +22,11 @@
 			</form>
 		</span>
 		<span style="display: inline-block; vertical-align:top;">
+			<h1>Form rendered by boundfield renderer</h1>
 			<form method="POST">
 				{% csrf_token %}
 				<table><tbody>
-				{% include 'default/form.html' with form=form only %}
+				{% include 'builtin/form.html' with form=form only %}
 				</tbody></table>
 				<input type="submit" value="submit">
 			</form>

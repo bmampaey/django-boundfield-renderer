@@ -2,9 +2,9 @@
 A rendering engine for Django forms using templatetags
 
 ## Preamble
-There are already many libraries to render Django forms in templates, including the default Form methods as_p(), as_ul(), as_table(). Unfortunately, none of them (that I have encountered at least) apply strictly the concept of separation of form and function, or business logic from presentation, etc. Django has made a step into the right direction by using template for the widgets, but the entirety of a field rendering is still partially done in python code. For example, if the developer wishes to put the label after the checkbox, he still has to write python, instead of redefining a template.
+There are already many libraries to render Django forms in templates, including the default Form methods as_p(), as_ul(), as_table(). Unfortunately, none of them (that I have encountered at least) apply strictly the concept of separation of form and function, or business logic from presentation, etc. Django has made a step into the right direction by using templates for the widgets, but the entirety of a field rendering is still partially done in python code. For example, if the developer wishes to put the label after the checkbox, he still has to write python, instead of redefining a template.
 
-This library defines one or more registry, that associate a rendering function (called renderer) for each Form Field class. That rendering function is made available through the templatetag `renderer`.
+This library defines one or more registry, that associate a rendering function (called renderer) for each form field class. That rendering function is made available through the templatetag `renderer`.
 
 ## Basic steps to render a Django Form
 ### Create a registry and register the renderers for the field classes
@@ -135,7 +135,9 @@ For our example this would be:
 DEFAULT_BOUNDFIELD_RENDERER_REGISTRY = 'path.to.my_registry.registry'
 ```
 
-Finally, the renderer tag can take optional keyword parameters that will be added to the context. For example, our exmpale form template *mytemplates/my_form.html*, could look like this:
+Finally, the renderer tag can take optional keyword parameters that will be added to the context.
+
+If we reuse our previous example form template *mytemplates/my_form.html*, we could change the context for a particular field "starwberry" to add a context variable "css_classes" with a value of "forever":
 
 ```html
 {% load boundfield_renderer %}

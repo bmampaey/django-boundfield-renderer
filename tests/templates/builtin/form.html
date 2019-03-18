@@ -1,12 +1,12 @@
-{% load formrenderer %}
+{% load boundfield_renderer %}
 {% load toperrors %}
 
 {# Add the non field errors and the hidden field errors #}
-{% include 'default/top_errors.html' with non_field_errors=form.non_field_errors hidden_fields_errors=form|hidden_fields_errors only %}
+{% include 'builtin/toperrors.html' with non_field_errors=form.non_field_errors hidden_fields_errors=form|hidden_fields_errors only %}
 
 {# Render visible fields with our templatetag #}
 {% for boundfield in form.visible_fields %}
-{% render boundfield 'formrenderer.registries.default' last_field=forloop.last %}
+{% renderer boundfield 'boundfield_renderer.registries.default' last_field=forloop.last %}
 {% endfor %}
 
 {# Render hidden fields #}

@@ -1,9 +1,9 @@
+from datetime import date, datetime, timedelta
 from django import forms
-from django.contrib.auth.models import User
-from form_fields import MyCharField, MyField, MySuperField
+from django.contrib.contenttypes.models import ContentType
 
-class TestForm(forms.Form):
-	'''Form to test the rendering of all fields types'''
+class BuiltinForm(forms.Form):
+	'''Form to test the rendering of all built-in fields types'''
 	boolean = forms.BooleanField()
 	char = forms.CharField(min_length=3, max_length=5)
 	choice = forms.ChoiceField(choices=[('1', 'tomato'), ('2', 'apple')])
@@ -29,26 +29,63 @@ class TestForm(forms.Form):
 	uuid = forms.UUIDField()
 	combo = forms.ComboField(fields=[forms.CharField(max_length=20), forms.EmailField()])
 	splitdatetime = forms.SplitDateTimeField()
-	modelchoice = forms.ModelChoiceField(queryset=User.objects.all())
-	modelmultiplechoice = forms.ModelMultipleChoiceField(queryset=User.objects.all())
+	modelchoice = forms.ModelChoiceField(queryset=ContentType.objects.all())
+	modelmultiplechoice = forms.ModelMultipleChoiceField(queryset=ContentType.objects.all())
 	hidden = forms.CharField(widget=forms.HiddenInput)
 	textarea = forms.CharField(widget=forms.Textarea)
+	password = forms.CharField(widget=forms.PasswordInput)
 	radio = forms.ChoiceField(choices=[('1', 'tomato'), ('2', 'apple')], widget=forms.RadioSelect)
 	helptext = forms.CharField(help_text = 'Some help text')
 	initial = forms.CharField(initial = 'Some initial value')
 	label = forms.CharField(label = 'Some specific label')
-	mycharfield = MyCharField(initial='Spanish Inquisition')
-	myfield = MyField()
-	mysuperfield = MySuperField()
 	
-	def __init__(self, *args, required = False, disabled = False, with_errors = False, **kwargs):
+	def __init__(self, *args, required = False, disabled = False, with_errors = False, with_initial = False, **kwargs):
 		super().__init__(*args, **kwargs)
 		
 		self.with_errors = with_errors
 		
 		for field in self.fields.values():
 			field.required = required
-			field.diabled = disabled
+			field.disabled = disabled
+		
+		if with_initial:
+			
+			self.initial.update({
+				'boolean': True,
+				'char': 'test',
+				'choice': '1',
+				'typedchoice': 1,
+				'date': date.today(),
+				'datetime': datetime.now(),
+				'decimal': 0.1,
+				'duration': timedelta(1),
+				'email': 'test@test.com',
+				'file': 'TODO',
+				'filepath': '/tmp',
+				'float': 0.1,
+				'image': 'TODO',
+				'integer': 0,
+				'genericipaddress': '127.0.0.1',
+				'multiplechoice': ['1', '2'],
+				'typedmultiplechoice': [1, 2],
+				'nullboolean': True,
+				'regex': 'test',
+				'slug': 'test',
+				'time': datetime.now().time(),
+				'url': 'http://127.0.0.1',
+				'uuid': '12345678123456781234567812345678',
+				'combo': 'test@test.com',
+				'splitdatetime': datetime.now(),
+				'modelchoice': ContentType.objects.first(),
+				'modelmultiplechoice': ContentType.objects.all(),
+				'hidden': 'test',
+				'textarea': 'multiline\ntest',
+				'password': 'password',
+				'radio': '1',
+				'helptext': 'test',
+				'initial': 'Some OTHER initial value',
+				'label': 'test',
+			})
 	
 	def clean(self):
 		cleaned_data = super().clean()
