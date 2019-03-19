@@ -1,6 +1,6 @@
 <div class="form-group">
 	<label class="{% if required %}required{% endif %}" for="{{ id }}">{{ label }}</label>
-	<input id="{{ id }}" name="{{ html_name }}" value="{{ value }}" {% include 'bootstrap4/base/attributes.html' with class='form-control' %}{% include 'bootstrap4/base/input_attributes.html' %}>
+	<textarea id="{{ id }}" name="{{ html_name }}" value="{{ value }}" {% include 'bootstrap4/base/attributes.html' with class='form-control' %}{% include 'bootstrap4/base/textarea_attributes.html' %}>
 	{% include 'bootstrap4/base/errors.html' with errors=errors only %}
 	{% include 'bootstrap4/base/help_text.html' with help_text=help_text only %}
 </div>

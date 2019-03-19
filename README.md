@@ -92,9 +92,9 @@ class MySuperField(MyField):
 Since adding some extra fields to the context is a common operation, it can be done with the utility function `update_context`. For example the example above could be rewritten:
 
 ```python
-from bound_field.utils import update_context
+from boundfield_renderer.utils import update_context
 
-@registry.register(get_template('mytemplates/my_field.html').render, update_context({'css_classes': 'bowtie'}))
+@registry.register(get_template('mytemplates/my_field.html').render, update_context(css_classes = 'bowtie'))
 class MySuperField(MyField):
 	pass
 ```
@@ -146,7 +146,7 @@ If we reuse our previous example form template *mytemplates/my_form.html*, we co
 		<form>
 			{% for field in form %}
 			{% if field.name == 'strawberry' %}
-			{{ renderer field 'path.to.my_registry.registry' css_classes="forever" }}
+			{{ renderer field 'path.to.my_registry.registry' css_classes='forever' }}
 			{% else %}
 			{{ renderer field 'path.to.my_registry.registry' }}
 			{% endif %}

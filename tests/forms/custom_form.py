@@ -20,3 +20,10 @@ class MyFieldForm(forms.Form):
 class MySuperFieldForm(forms.Form):
 	'''Form to test the rendering of MySuperField'''
 	mysuperfield = MySuperField()
+
+class CustomForm(forms.Form):
+	charfield = forms.CharField()
+	mycharfield = MyCharField(initial='Spanish Inquisition')
+	myothercharfield = MyOtherCharField(initial='Spanish Inquisition')
+	myfield = MyField()
+	mysuperfield = MySuperField()

@@ -1,9 +1,6 @@
 from django.views.generic import FormView
-from forms import BuiltinForm
 
-class CompareFormView(FormView):
-	form_class = BuiltinForm
-	template_name = 'builtin/compare_form.html'
+class DisplayFormView(FormView):
 	
 	def get_form_kwargs(self):
 		kwargs = super().get_form_kwargs()

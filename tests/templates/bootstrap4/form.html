@@ -1,25 +1,17 @@
-{% load floppyforms %}
+{% load boundfield_renderer %}
 
-{% block formconfig %}
-	{% formconfig row using "floppyforms/rows/bootstrap.html" %}
-{% endblock %}
+{# Add the non field errors and the hidden field errors #}
+{% include 'bootstrap4/toperrors.html' with errors=form.non_field_errors %}
+{% for boundfield in form.hidden_fields %}
+{% include 'bootstrap4/toperrors.html' with errors=boundfield.errors boundfield=boundfield only %}
+{% endfor %}
 
-{% block forms %}
-	{% for form in forms %}
-		{% block errors %}
-		{% with hidden_field_errors=form|hidden_field_errors non_field_errors=form.non_field_errors %}
-		{% include "floppyforms/errors.html" with errors=non_field_errors|add:hidden_field_errors %}
-		{% endwith %}
-		{% endblock errors %}
-		{% block rows %}
-		{% for field in form.visible_fields %}
-			{% block row %}
-				{% formrow field %}
-			{% endblock row %}
-		{% endfor %}
-		{% for field in form.hidden_fields %}
-			{% formfield field %}
-		{% endfor %}
-		{% endblock rows %}
-	{% endfor %}
-{% endblock forms %}
+{# Render visible fields with our templatetag #}
+{% for boundfield in form.visible_fields %}
+{% renderer boundfield 'boundfield_renderer.registries.bootstrap4' %}
+{% endfor %}
+
+{# Render hidden fields #}
+{% for boundfield in form.hidden_fields %}
+{% include 'bootstrap4/fields/hidden_field.html' with boundfield=boundfield %}
+{% endfor %}

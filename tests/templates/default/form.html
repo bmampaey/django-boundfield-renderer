@@ -2,7 +2,7 @@
 {% load toperrors %}
 
 {# Add the non field errors and the hidden field errors #}
-{% include 'builtin/toperrors.html' with non_field_errors=form.non_field_errors hidden_fields_errors=form|hidden_fields_errors only %}
+{% include 'default/toperrors.html' with non_field_errors=form.non_field_errors hidden_fields_errors=form|hidden_fields_errors only %}
 
 {# Render visible fields with our templatetag #}
 {% for boundfield in form.visible_fields %}

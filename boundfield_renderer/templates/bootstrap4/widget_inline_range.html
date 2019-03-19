@@ -1,12 +1,12 @@
 <div class="row align-items-center">
 	<div class="col-auto">
-		<label class="{% if context_0.required %}strong{% endif %}" for="{{ context_0.attrs.id }}">{{ label_0 }}</label>
+		<label class="{% if context_0.required %}required{% endif %}" for="{{ context_0.attrs.id }}">{{ label_0 }}</label>
 	</div>
 	<div class="col-auto">
 		{% include context_0.widget.template_name with name=context_0.name value=context_0.value attrs=context_0.attrs hidden=context_0.hidden required=context_0.required datalist=context_0.datalist only %}
 	</div>
 	<div class="col-auto">
-		<label class="{% if context_0.required %}strong{% endif %}" for="{{ context_1.attrs.id }}">{{ label_1 }}</label>
+		<label class="{% if context_1.required %}required{% endif %}" for="{{ context_1.attrs.id }}">{{ label_1 }}</label>
 	</div>
 	<div class="col-auto">
 		{% include context_1.widget.template_name with name=context_1.name value=context_1.value attrs=context_1.attrs hidden=context_1..hidden required=context_1..required datalist=context_1.datalist only %}

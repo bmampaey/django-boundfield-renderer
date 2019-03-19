@@ -1,11 +1,14 @@
 <div class="form-group">
-	<label class="{% if required %}strong{% endif %}" for="{{ id }}">{{ label }}</label>
-	<select id="{{ id }}" name="{{ html_name }}" class="form-control" {{ required }}{{ diabled }}{{ multiple }}>
-	{% for group_name, group_choices, group_index in boundfield.field.widget.optgroups %}
-	{% if group_name %}
-	<optgroup label="{{ group_name }}">{% endif %}
-	{% for option_ in group_choices %}
-	<option value="{{ option.value }}" {{ option.selected }}>{{ option.label }}</option>{% endfor %}{% if group_name %}
-	</optgroup>{% endif %}{% endfor %}
+	<label class="{% if required %}required{% endif %}" for="{{ id }}">{{ label }}</label>
+	<select id="{{ id }}" name="{{ html_name }}"{% if multiple %} multiple{% endif %} {% include 'bootstrap4/base/attributes.html' with class='form-control' %}>
+	{% for label, options in optgroups.items %}
+	<optgroup label="{{ label }}">
+	{% include 'bootstrap4/base/select_options.html' with options=options only %}
+	</optgroup>
+	{% empty %}
+	{% include 'bootstrap4/base/select_options.html' with options=options only %}
+	{% endfor %}
 	</select>
+	{% include 'bootstrap4/base/errors.html' with errors=errors only %}
+	{% include 'bootstrap4/base/help_text.html' with help_text=help_text only %}
 </div>

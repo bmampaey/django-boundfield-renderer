@@ -2,14 +2,18 @@
 <html lang="en">
 	<head>
 		<title>Test form renderer</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+		<style>
+			label.required {font-weight: bolder;}
+		</style>
 	</head>
 	<body>
 		<div style="padding: 1em 0;">
-			<a href="{% url 'default' %}">Default</a>
-			<a href="{% url 'required' %}">Required</a>
-			<a href="{% url 'disabled' %}">Disabled</a>
-			<a href="{% url 'with_errors' %}">With errors</a>
-			<a href="{% url 'with_initial' %}">With initial</a>
+			<a href="">Default</a>
+			<a href="required">Required</a>
+			<a href="disabled">Disabled</a>
+			<a href="with_errors">With errors</a>
+			<a href="with_initial">With initial</a>
 		</div>
 		<span style="display: inline-block; vertical-align:top;">
 			<h1>Form rendered by Django</h1>
@@ -22,12 +26,10 @@
 			</form>
 		</span>
 		<span style="display: inline-block; vertical-align:top;">
-			<h1>Form rendered by boundfield renderer</h1>
+			<h1>Form rendered by bootstrap4 renderer</h1>
 			<form method="POST">
 				{% csrf_token %}
-				<table><tbody>
-				{% include 'builtin/form.html' with form=form only %}
-				</tbody></table>
+				{% include 'bootstrap4/form.html' with form=form only %}
 				<input type="submit" value="submit">
 			</form>
 		</span>

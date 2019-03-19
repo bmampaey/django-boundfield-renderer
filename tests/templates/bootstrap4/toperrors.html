@@ -1,0 +1,3 @@
+{% for error in non_field_errors %}
+<div class="alert alert-danger" role="alert">{% if boundfield %}{{ boundfield.name }}: {% endif %}{{ error }}</div>
+{% endfor %}

@@ -23,7 +23,7 @@ class MyField(forms.Field):
 	pass
 
 
-@default.register(renderer = get_template('custom/my_field.html').render, context_modifier = update_context({'css_classes': 'bowtie'}))
+@default.register(renderer = get_template('custom/my_field.html').render, context_modifier = update_context(css_classes = 'bowtie'))
 class MySuperField(MyField):
 	'''Just like MyField but with some extra class'''
 	pass
