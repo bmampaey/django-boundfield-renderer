@@ -1,0 +1,11 @@
+<div class="form-group">
+	<label class="{% if required %}strong{% endif %}" for="{{ id }}">{{ label }}</label>
+	<select id="{{ id }}" name="{{ html_name }}" class="form-control" {{ required }}{{ diabled }}{{ multiple }}>
+	{% for group_name, group_choices, group_index in boundfield.field.widget.optgroups %}
+	{% if group_name %}
+	<optgroup label="{{ group_name }}">{% endif %}
+	{% for option_ in group_choices %}
+	<option value="{{ option.value }}" {{ option.selected }}>{{ option.label }}</option>{% endfor %}{% if group_name %}
+	</optgroup>{% endif %}{% endfor %}
+	</select>
+</div>

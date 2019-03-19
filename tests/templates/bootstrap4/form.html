@@ -1,0 +1,25 @@
+{% load floppyforms %}
+
+{% block formconfig %}
+	{% formconfig row using "floppyforms/rows/bootstrap.html" %}
+{% endblock %}
+
+{% block forms %}
+	{% for form in forms %}
+		{% block errors %}
+		{% with hidden_field_errors=form|hidden_field_errors non_field_errors=form.non_field_errors %}
+		{% include "floppyforms/errors.html" with errors=non_field_errors|add:hidden_field_errors %}
+		{% endwith %}
+		{% endblock errors %}
+		{% block rows %}
+		{% for field in form.visible_fields %}
+			{% block row %}
+				{% formrow field %}
+			{% endblock row %}
+		{% endfor %}
+		{% for field in form.hidden_fields %}
+			{% formfield field %}
+		{% endfor %}
+		{% endblock rows %}
+	{% endfor %}
+{% endblock forms %}

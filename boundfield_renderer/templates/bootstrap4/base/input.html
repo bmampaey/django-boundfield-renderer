@@ -1,0 +1,6 @@
+<div class="form-group">
+	<label class="{% if required %}strong{% endif %}" for="{{ id }}">{{ label }}</label>
+	<input type="{{ input_type }}" id="{{ id }}" name="{{ html_name }}" value="{{ value }}" class="form-control"{% if required %} required{% endif %}{% if disabled %} disabled{% endif %}{% if extra_attrs %} {{ extra_attrs }}{% endif %}>
+	{% include "bootstrap4/errors.html" with errors=errors only %}
+	{% include "bootstrap4/help_text.html" with help_text=help_text only %}
+</div>
