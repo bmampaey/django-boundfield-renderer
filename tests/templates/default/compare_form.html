@@ -4,19 +4,13 @@
 		<title>Test form renderer</title>
 	</head>
 	<body>
-		<div style="padding: 1em 0;">
-			<a href="">Default</a>
-			<a href="required">Required</a>
-			<a href="disabled">Disabled</a>
-			<a href="with_errors">With errors</a>
-			<a href="with_initial">With initial</a>
-		</div>
+		{% include 'menu.html' %}
 		<span style="display: inline-block; vertical-align:top;">
 			<h1>Form rendered by Django</h1>
 			<form method="POST">
 				{% csrf_token %}
 				<table><tbody>
-				{{ form }}
+				{{ form1 }}
 				</tbody></table>
 				<input type="submit" value="submit">
 			</form>
@@ -26,7 +20,7 @@
 			<form method="POST">
 				{% csrf_token %}
 				<table><tbody>
-				{% include 'default/form.html' with form=form only %}
+				{% include 'default/form.html' with form=form2 only %}
 				</tbody></table>
 				<input type="submit" value="submit">
 			</form>

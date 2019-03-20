@@ -4,14 +4,7 @@
 		<title>Test form renderer</title>
 	</head>
 	<body>
-		<div style="padding: 1em 0;">
-			<a href="">Default</a>
-			<a href="required">Required</a>
-			<a href="disabled">Disabled</a>
-			<a href="with_errors">With errors</a>
-			<a href="with_initial">With initial</a>
-		</div>
-		
+		{% include 'menu.html' %}
 		<h1>Form rendered by default renderer</h1>
 		<form method="POST">
 			{% csrf_token %}

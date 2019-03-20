@@ -5,7 +5,7 @@ from forms import CharFieldForm, MyCharFieldForm, MyOtherCharFieldForm, MyFieldF
 
 class TestCustom(TestCase):
 	def setUp(self):
-		self.template = get_template('custom/form.html')
+		self.template = get_template('default/form.html')
 	
 	def test_CharField(self):
 		form = CharFieldForm()

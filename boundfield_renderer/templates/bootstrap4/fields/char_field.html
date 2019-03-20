@@ -1,1 +1,7 @@
+{% if widget_type == 'PasswordInput' %}
+{% include 'bootstrap4/base/input.html' with input_type='password' %}
+{% elif widget_type == 'Textarea' %}
+{% include 'bootstrap4/base/textarea.html' %}
+{% else %}
 {% include 'bootstrap4/base/input.html' %}
+{% endif %}

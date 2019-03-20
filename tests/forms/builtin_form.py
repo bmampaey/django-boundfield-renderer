@@ -4,37 +4,37 @@ from django.contrib.contenttypes.models import ContentType
 
 class BuiltinForm(forms.Form):
 	'''Form to test the rendering of all built-in fields types'''
-	boolean = forms.BooleanField()
-	char = forms.CharField(min_length=3, max_length=5)
-	choice = forms.ChoiceField(choices=[('1', 'tomato'), ('2', 'apple')])
-	typedchoice = forms.TypedChoiceField(choices=[(1, 'tomato'), (2, 'apple')], coerce=int, empty_value = None)
-	date = forms.DateField()
-	datetime = forms.DateTimeField()
-	decimal = forms.DecimalField(min_value=0, max_value=99, max_digits=5, decimal_places=3)
-	duration = forms.DurationField()
-	email = forms.EmailField(min_length=5, max_length=50)
-	file = forms.FileField(max_length=100)
-	filepath = forms.FilePathField(path='/tmp')
-	float = forms.FloatField()
-	image = forms.ImageField()
-	integer = forms.IntegerField(min_value=0, max_value=100)
-	genericipaddress = forms.GenericIPAddressField()
-	multiplechoice = forms.MultipleChoiceField(choices=[('1', 'tomato'), ('2', 'apple')])
-	typedmultiplechoice = forms.TypedMultipleChoiceField(choices=[(1, 'tomato'), (2, 'apple')], coerce=int, empty_value = None)
-	nullboolean = forms.NullBooleanField()
-	regex = forms.RegexField(regex=r'\w+')
-	slug = forms.SlugField()
-	time = forms.TimeField()
-	url = forms.URLField(min_length=3, max_length=100)
-	uuid = forms.UUIDField()
-	combo = forms.ComboField(fields=[forms.CharField(max_length=20), forms.EmailField()])
-	splitdatetime = forms.SplitDateTimeField()
-	modelchoice = forms.ModelChoiceField(queryset=ContentType.objects.all())
-	modelmultiplechoice = forms.ModelMultipleChoiceField(queryset=ContentType.objects.all())
+	boolean_field = forms.BooleanField()
+	char_field = forms.CharField(min_length=3, max_length=5)
+	choice_field = forms.ChoiceField(choices=[('1', 'tomato'), ('2', 'apple'), ('3', 'cherry')])
+	typedchoice_field = forms.TypedChoiceField(choices=[(1, 'tomato'), (2, 'apple'), (3, 'cherry')], coerce=int, empty_value = None)
+	date_field = forms.DateField()
+	datetime_field = forms.DateTimeField()
+	decimal_field = forms.DecimalField(min_value=0, max_value=99, max_digits=5, decimal_places=3)
+	duration_field = forms.DurationField()
+	email_field = forms.EmailField(min_length=5, max_length=50)
+	file_field = forms.FileField(max_length=100)
+	filepath_field = forms.FilePathField(path='/tmp')
+	float_field = forms.FloatField()
+	image_field = forms.ImageField()
+	integer_field = forms.IntegerField(min_value=0, max_value=100)
+	genericipaddress_field = forms.GenericIPAddressField()
+	multiplechoice_field = forms.MultipleChoiceField(choices=[('1', 'tomato'), ('2', 'apple'), ('3', 'cherry')])
+	typedmultiplechoice_field = forms.TypedMultipleChoiceField(choices=[(1, 'tomato'), (2, 'apple'), (3, 'cherry')], coerce=int, empty_value = None)
+	nullboolean_field = forms.NullBooleanField()
+	regex_field = forms.RegexField(regex=r'\w+')
+	slug_field = forms.SlugField()
+	time_field = forms.TimeField()
+	url_field = forms.URLField(min_length=3, max_length=100)
+	uuid_field = forms.UUIDField()
+	combo_field = forms.ComboField(fields=[forms.CharField(max_length=20), forms.EmailField()])
+	splitdatetime_field = forms.SplitDateTimeField()
+	modelchoice_field = forms.ModelChoiceField(queryset=ContentType.objects.all())
+	modelmultiplechoice_field = forms.ModelMultipleChoiceField(queryset=ContentType.objects.all())
 	hidden = forms.CharField(widget=forms.HiddenInput)
 	textarea = forms.CharField(widget=forms.Textarea)
 	password = forms.CharField(widget=forms.PasswordInput)
-	radio = forms.ChoiceField(choices=[('1', 'tomato'), ('2', 'apple')], widget=forms.RadioSelect)
+	radio = forms.ChoiceField(choices=[('1', 'tomato'), ('2', 'apple'), ('3', 'cherry')], widget=forms.RadioSelect)
 	helptext = forms.CharField(help_text = 'Some help text')
 	initial = forms.CharField(initial = 'Some initial value')
 	label = forms.CharField(label = 'Some specific label')
@@ -51,37 +51,37 @@ class BuiltinForm(forms.Form):
 		if with_initial:
 			
 			self.initial.update({
-				'boolean': True,
-				'char': 'test',
-				'choice': '1',
-				'typedchoice': 1,
-				'date': date.today(),
-				'datetime': datetime.now(),
-				'decimal': 0.1,
-				'duration': timedelta(1),
-				'email': 'test@test.com',
-				'file': 'TODO',
-				'filepath': '/tmp',
-				'float': 0.1,
-				'image': 'TODO',
-				'integer': 0,
-				'genericipaddress': '127.0.0.1',
-				'multiplechoice': ['1', '2'],
-				'typedmultiplechoice': [1, 2],
-				'nullboolean': True,
-				'regex': 'test',
-				'slug': 'test',
-				'time': datetime.now().time(),
-				'url': 'http://127.0.0.1',
-				'uuid': '12345678123456781234567812345678',
-				'combo': 'test@test.com',
-				'splitdatetime': datetime.now(),
-				'modelchoice': ContentType.objects.first(),
-				'modelmultiplechoice': ContentType.objects.all(),
+				'boolean_field': True,
+				'char_field': 'test',
+				'choice_field': '2',
+				'typedchoice_field': 2,
+				'date_field': date.today(),
+				'datetime_field': datetime.now(),
+				'decimal_field': 0.1,
+				'duration_field': timedelta(1),
+				'email_field': 'test@test.com',
+				'file_field': 'TODO',
+				'filepath_field': '/tmp',
+				'float_field': 0.1,
+				'image_field': 'TODO',
+				'integer_field': 0,
+				'genericipaddress_field': '127.0.0.1',
+				'multiplechoice_field': ['1', '2'],
+				'typedmultiplechoice_field': [1, 2],
+				'nullboolean_field': False,
+				'regex_field': 'test',
+				'slug_field': 'test',
+				'time_field': datetime.now().time(),
+				'url_field': 'http://127.0.0.1',
+				'uuid_field': '12345678123456781234567812345678',
+				'combo_field': 'test@test.com',
+				'splitdatetime_field': datetime.now(),
+				'modelchoice_field': ContentType.objects.all()[2],
+				'modelmultiplechoice_field': ContentType.objects.all()[:2],
 				'hidden': 'test',
 				'textarea': 'multiline\ntest',
 				'password': 'password',
-				'radio': '1',
+				'radio': '3',
 				'helptext': 'test',
 				'initial': 'Some OTHER initial value',
 				'label': 'test',

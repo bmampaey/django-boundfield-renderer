@@ -5,7 +5,7 @@ from forms import BuiltinForm
 
 class TestBuiltin(TestCase):
 	def setUp(self):
-		self.template = get_template('builtin/form.html')
+		self.template = get_template('default/form.html')
 	
 	def test_unbound(self):
 		form = BuiltinForm()
