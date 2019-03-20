@@ -44,7 +44,6 @@ def make_options(choices, value):
 	if not isinstance(value, (tuple, list)):
 		value = [value]
 	value = [str(v) if v is not None else '' for v in value]
-	print(list(choices), value)
 	return [{'value': str(choice[0]), 'label': choice[1], 'selected': str(choice[0]) in value} for choice in choices]
 
 def get_options(boundfield):
@@ -70,7 +69,6 @@ def get_null_boolean_options(boundfield):
 
 def to_iso(boundfield):
 	value = boundfield.value() or ''
-	print('to_iso', value)
 	if isinstance(value, str):
 		return value
 	else:
