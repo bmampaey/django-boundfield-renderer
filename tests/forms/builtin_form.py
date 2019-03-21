@@ -1,5 +1,6 @@
 from datetime import date, datetime, timedelta
 from django import forms
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.contenttypes.models import ContentType
 
 class BuiltinForm(forms.Form):
@@ -49,6 +50,10 @@ class BuiltinForm(forms.Form):
 			field.disabled = disabled
 		
 		if with_initial:
+			class FakeFile:
+				url = 'http://www.test.com'
+				def __str__(self):
+					return self.url
 			
 			self.initial.update({
 				'boolean_field': True,
@@ -60,10 +65,10 @@ class BuiltinForm(forms.Form):
 				'decimal_field': 0.1,
 				'duration_field': timedelta(1),
 				'email_field': 'test@test.com',
-				'file_field': 'TODO',
+				'file_field': FakeFile(),
 				'filepath_field': '/tmp',
 				'float_field': 0.1,
-				'image_field': 'TODO',
+				'image_field': FakeFile(),
 				'integer_field': 0,
 				'genericipaddress_field': '127.0.0.1',
 				'multiplechoice_field': ['1', '2'],
