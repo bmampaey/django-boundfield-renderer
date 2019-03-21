@@ -7,7 +7,7 @@ register = template.Library()
 @register.simple_tag
 def renderer(boundfield, registry = None, **kwargs):
 	'''
-	Render a boundfield to html using the specified renderer registry
+	Render a boundfield to HTML using the specified renderer registry
 	
 	The context dict contains the following key/values:
 		form: The form the field belongs to
@@ -37,7 +37,7 @@ def renderer(boundfield, registry = None, **kwargs):
 			raise ValueError('Could not find registry "%s"' % registry) from why
 	
 	# Get the approriate renderer
-	renderer, context_modifier = registry[boundfield.field]
+	renderer, context_modifier = registry[type(boundfield.field)]
 	
 	# Create the context dict
 	context = {

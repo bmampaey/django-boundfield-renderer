@@ -1,6 +1,7 @@
 import inspect
+from collections import UserDict
 
-class RendererRegistry:
+class RendererRegistry(UserDict):
 	'''
 	Registry for the form field renderers.
 	
@@ -10,21 +11,13 @@ class RendererRegistry:
 	
 	'''
 	
-	def __init__(self, **kwargs):
-		self.registry = dict()
-		self.registry.update(kwargs)
-	
 	def __getitem__(self, key):
 		'''Return the best renderer function for the field'''
-		
-		# The registry needs the form field class, not an instance
-		if not inspect.isclass(key):
-			key = type(key)
 		
 		# Look up the chain of inheritance for a registered renderer
 		for form_class in inspect.getmro(key):
 			try:
-				return self.registry[form_class]
+				return super().__getitem__(form_class)
 			except KeyError:
 				pass
 		
@@ -47,12 +40,12 @@ class RendererRegistry:
 		
 		if args: # register is called directly
 			for form_field_class in args:
-				self.registry[form_field_class] = renderer, context_modifier
+				self[form_field_class] = renderer, context_modifier
 		else: # register is called as a decorator
 			return self._register(renderer, context_modifier)
 		
 	def _register(self, renderer, context_modifier):
 		def registerer(form_field_class):
-			self.registry[form_field_class] = renderer, context_modifier
+			self[form_field_class] = renderer, context_modifier
 			return form_field_class
 		return registerer
