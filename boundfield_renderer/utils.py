@@ -55,7 +55,7 @@ def get_optgroups(boundfield):
 	choices = getattr(boundfield.field, 'choices', [])
 	value = boundfield.value()
 	if choices and isinstance(choices[0][1], (list, tuple)):
-		return {choice[0]: make_options(choice[1], value) for choice in choices}
+		return [{'label': choice[0], 'options': make_options(choice[1], value)} for choice in choices]
 	else:
 		return {}
 
