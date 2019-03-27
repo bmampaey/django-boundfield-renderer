@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		{% include 'menu.html' %}
-		<span style="display: inline-block; vertical-align:top;">
+		<div style="display: inline-block; vertical-align:top;">
 			<h1>Form rendered by Django</h1>
 			<form method="POST">
 				{% csrf_token %}
@@ -18,14 +18,14 @@
 				</tbody></table>
 				<input type="submit" value="submit">
 			</form>
-		</span>
-		<span style="display: inline-block; vertical-align:top;">
+		</div>
+		<div style="display: inline-block; vertical-align:top;">
 			<h1>Form rendered by bootstrap4 renderer</h1>
 			<form method="POST">
 				{% csrf_token %}
 				{% include 'bootstrap4/form.html' with form=form2 only %}
 				<input type="submit" value="submit">
 			</form>
-		</span>
+		</div>
 	</body>
 </html>

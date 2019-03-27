@@ -13,5 +13,5 @@
 
 {# Render hidden fields #}
 {% for boundfield in form.hidden_fields %}
-{% include 'bootstrap4/fields/hidden_field.html' with boundfield=boundfield %}
+{{ boundfield }}
 {% endfor %}
