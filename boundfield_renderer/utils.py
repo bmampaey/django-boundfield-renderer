@@ -1,25 +1,30 @@
 from decimal import Decimal
+from django.template.loader import get_template
 from django.utils.translation import gettext_lazy as _
 
-def update_context(**kwargs):
+def template_renderer(template_name, **kwargs):
 	'''
-	A utility fonction that can be passed as the context_modifier function to update the context.
-	Example:
-	@registry.register(renderer=my_renderer, context_modifier=update_context(style = 'color: red;'))
-	class MyField(forms.Field):
-		pass
+	A utility fonction that return a renderer function that renders a template by passing it the context.
+	Optional keywords can be specified to be added to the context before rendering the template.
+	If the value of the keyword is callable, it will be called with the boundfield as parameter.
+	Examples:
+	template_renderer('path/to/my_template.html', color = 'red')
+	This will add the item ('color': 'red') to the context before rendering the template
 	
-	The context dict that will be passed to my_renderer will have an item ('style', 'color: red;')
+	template_renderer('path/to/my_template.html', color = lambda b: 'red' if b.value() < 0 else 'blue')
+	This will add the item ('color': 'red') to the context if the value of the boundfield is negative,
+	else it will add the the item ('color': 'blue') before rendering the template.
 	'''
-	def context_updater(context):
+	def render_template(context):
+		template = get_template(template_name)
 		boundfield = context['boundfield']
 		for key, value in kwargs.items():
 			if callable(value):
 				context[key] = value(boundfield)
 			else:
 				context[key] = value
-		return context
-	return context_updater
+		return template.render(context)
+	return render_template
 
 def get_min(boundfield):
 	return getattr(boundfield.field, 'min_value', None)
@@ -60,12 +65,13 @@ def get_optgroups(boundfield):
 		return {}
 
 def get_null_boolean_options(boundfield):
-	options = [
+	choices = [
 		(None, _('Unknown')),
 		(True, _('Yes')),
 		(False, _('No')),
 	]
-	return make_options(options, [boundfield.value()])
+	value = boundfield.value()
+	return make_options(choices, value)
 
 def to_iso(boundfield):
 	value = boundfield.value() or ''

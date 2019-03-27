@@ -24,28 +24,21 @@ class RendererRegistry(UserDict):
 		# If no renderer was found raise an Exception
 		raise ValueError('No renderer found for field %s' % key)
 	
-	def register(self, *args, renderer, context_modifier = None):
+	def register(self, renderer):
 		'''
-		Register a form field class into the registry.
-		The renderer and context_modifier functions must be passed as keyword arguments.
+		Form Field class decorator to register a renderer into the registry.
 		
-		Can be called directly like so:
-		renderer_registry.register(forms.CharField, forms.IntegerField, ... , renderer=my_renderer, context_modifier=my_context_modifier)
+		Example:
+		from django.template.loader import get_template
+		from my_registry import renderer_registry
 		
-		Or as a decorator like so:
-		renderer_registry.register(renderer=my_renderer, context_modifier=my_context_modifier)
+		renderer_registry.register(get_template('/path/to/my_field.html').render)
 		class MyField(forms.Field):
 			pass
 		'''
 		
-		if args: # register is called directly
-			for form_field_class in args:
-				self[form_field_class] = renderer, context_modifier
-		else: # register is called as a decorator
-			return self._register(renderer, context_modifier)
-		
-	def _register(self, renderer, context_modifier):
 		def registerer(form_field_class):
-			self[form_field_class] = renderer, context_modifier
+			self[form_field_class] = renderer
 			return form_field_class
+		
 		return registerer

@@ -37,7 +37,7 @@ def renderer(boundfield, registry = None, **kwargs):
 			raise ValueError('Could not find registry "%s"' % registry) from why
 	
 	# Get the approriate renderer
-	renderer, context_modifier = registry[type(boundfield.field)]
+	renderer = registry[type(boundfield.field)]
 	
 	# Create the context dict
 	context = {
@@ -54,10 +54,6 @@ def renderer(boundfield, registry = None, **kwargs):
 		'required': boundfield.field.required,
 		'widget_type': boundfield.field.widget.__class__.__name__
 	}
-	
-	# Modify the context dict
-	if context_modifier is not None:
-		context = context_modifier(context)
 	
 	# Add the extra context kwargs
 	context.update(kwargs)
