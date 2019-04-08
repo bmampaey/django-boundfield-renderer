@@ -1,0 +1,6 @@
+<div class="form-check">
+	{{ widget }}
+	<label class="form-check-label" for="{{ id }}">{{ label }}</label>
+	{% include 'bootstrap4/errors.html' with errors=errors only %}
+	{% include 'bootstrap4/help_text.html' with help_text=help_text only %}
+</div>

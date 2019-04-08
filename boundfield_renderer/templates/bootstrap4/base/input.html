@@ -1,6 +1,0 @@
-<div class="form-group">
-	<label for="{{ id }}"{% if required %} class="required"{% endif %}>{{ label }}</label>
-	<input id="{{ id }}" name="{{ html_name }}" value="{{ value|default_if_none:'' }}" {% include 'bootstrap4/base/attributes.html' with class='form-control' %}{% include 'bootstrap4/base/input_attributes.html' %}>
-	{% include 'bootstrap4/base/errors.html' with errors=errors only %}
-	{% include 'bootstrap4/base/help_text.html' with help_text=help_text only %}
-</div>

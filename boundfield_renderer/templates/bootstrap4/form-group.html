@@ -1,0 +1,6 @@
+<div class="form-group">
+	<label for="{{ id }}"{% if required %} class="required"{% endif %}>{{ label }}</label>
+	{{ widget }}
+	{% include 'bootstrap4/errors.html' with errors=errors only %}
+	{% include 'bootstrap4/help_text.html' with help_text=help_text only %}
+</div>

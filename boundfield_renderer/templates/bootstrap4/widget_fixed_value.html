@@ -1,6 +1,0 @@
-<input type="hidden" name="{{ name }}" class="form-control{% if classes %} {{ classes }}{% endif %}"{% if value %} value="{{ value }}"{% endif %}{% if required %} required{% endif %}  {% include "floppyforms/attrs.html" %}>
-{% if text_value is not None %}
-<p class="form-control-plaintext">{{ text_value }}</p>
-{% else %}
-<p class="form-control-plaintext">{{ value }}</p>
-{% endif %}

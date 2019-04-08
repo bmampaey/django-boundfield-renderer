@@ -51,8 +51,7 @@ def renderer(boundfield, registry = None, **kwargs):
 		'errors': boundfield.errors,
 		'disabled': boundfield.field.disabled,
 		'is_hidden': boundfield.is_hidden,
-		'required': boundfield.field.required,
-		'widget_type': boundfield.field.widget.__class__.__name__
+		'required': boundfield.field.required
 	}
 	
 	# Add the extra context kwargs

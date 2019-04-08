@@ -1,6 +1,0 @@
-<div class="form-check">
-	<input id="{{ id }}" name="{{ html_name }}" type="{{ input_type }}" {% if value %}checked {% endif %}{% include 'bootstrap4/base/attributes.html' with class='form-check-input' %}>
-	<label class="form-check-label" for="{{ id }}">{{ label }}</label>
-	{% include 'bootstrap4/base/errors.html' with errors=errors only %}
-	{% include 'bootstrap4/base/help_text.html' with help_text=help_text only %}
-</div>
