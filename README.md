@@ -34,7 +34,7 @@ class MyField(forms.Field):
 
 The file *mytemplates/char_field.html* could be as simple as this:
 ```html
-<label for={{ id }}>{{label}}
+<label for="{{ id }}">{{label}}
 <input type="text" id="{{ id }}" name="{{ name }}" value="{{ value }}">
 </label>
 <p>{{help_text}}</p>
