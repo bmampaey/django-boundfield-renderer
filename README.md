@@ -74,30 +74,6 @@ A renderer function does not have to be a template render method, it can be any 
   * __is_hidden__: True if the field is hidden
   * __required__: True if the field is required
 
-## Context modifier function
-
-When registering a renderer for a Form Field, it is possible to specify a context modifier function. This function will receive the context as the only parameter, and is suppose to return it modified. For example:
-
-```python
-# Let's add a some class to MyField
-
-def add_class(context):
-	context['css_classes'] = 'bowtie'
-	return context
-
-@registry.register(get_template('mytemplates/my_field.html').render, add_class)
-class MySuperField(MyField):
-	pass
-```
-Since adding some extra fields to the context is a common operation, it can be done with the utility function `update_context`. For example the example above could be rewritten:
-
-```python
-from boundfield_renderer.utils import update_context
-
-@registry.register(get_template('mytemplates/my_field.html').render, update_context(css_classes = 'bowtie'))
-class MySuperField(MyField):
-	pass
-```
 
 ## Resolution of renderer
 To find a renderer for a field class, we follow the MRO order of the field class until a we find a renderer registered for that subclass. For example:
