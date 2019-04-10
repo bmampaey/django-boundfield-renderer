@@ -22,11 +22,11 @@ registry = RendererRegistry()
 template_render = get_template('mytemplates/char_field.html').render
 
 # Register the renderer for the field class in the registry
-# Either by calling the register method and passing it the field class and the renderer method
-registry.register(forms.CharField, renderer = template_render)
+# Either by setting it directly on the registry
+registry[forms.CharField] = template_render
 
 # Or by using the register method as a decorator on a field class definition
-@registry.register(renderer = get_template('mytemplates/my_field.html').render)
+@registry.register(get_template('mytemplates/my_field.html').render)
 class MyField(forms.Field):
 	pass
 
@@ -37,7 +37,7 @@ The file *mytemplates/char_field.html* could be as simple as this:
 <label for="{{ id }}">{{label}}
 <input type="text" id="{{ id }}" name="{{ name }}" value="{{ value }}">
 </label>
-<p>{{help_text}}</p>
+<p>{{ help_text }}</p>
 <ul>
 {% for error in errors %}<li>{{ error }}</li>{% endfor %}
 </ul>
@@ -50,8 +50,8 @@ For example, in the file *mytemplates/my_form.html*
 <html>
 	<body>
 		<form>
-			{% for field in form %}
-			{{ renderer field 'path.to.my_registry.registry' }}
+			{% for boundfield in form %}
+			{% renderer boundfield 'path.to.my_registry.registry' %}
 			{% endfor %}
 			<input type="submit" value="Send">
 		</form>
@@ -76,7 +76,7 @@ A renderer function does not have to be a template render method, it can be any 
 
 
 ## Resolution of renderer
-To find a renderer for a field class, we follow the MRO order of the field class until a we find a renderer registered for that subclass. For example:
+To find a renderer for a field class, we follow the MRO order of the field class until we find a renderer registered for that subclass. For example:
 
 ```python
 from django.core.exceptions import ValidationError
@@ -120,11 +120,11 @@ If we reuse our previous example form template *mytemplates/my_form.html*, we co
 <html>
 	<body>
 		<form>
-			{% for field in form %}
-			{% if field.name == 'strawberry' %}
-			{{ renderer field 'path.to.my_registry.registry' css_classes='forever' }}
+			{% for boundfield in form %}
+			{% if boundfield.name == 'strawberry' %}
+			{% renderer boundfield 'path.to.my_registry.registry' css_classes='forever' %}
 			{% else %}
-			{{ renderer field 'path.to.my_registry.registry' }}
+			{% renderer boundfield 'path.to.my_registry.registry' %}
 			{% endif %}
 			{% endfor %}
 			<input type="submit" value="Send">
@@ -132,3 +132,8 @@ If we reuse our previous example form template *mytemplates/my_form.html*, we co
 	</body>
 </html>
 ```
+
+## Note on renderer registration
+The code that registers the renderer for a form field class must be executed by Django before the `renderer` templatetag is called.
+
+Practically, this can be achieved by registering the renderers in the same file where the registry is defined, or in the files where the form field class are defined (for example using the *register* decorator)
