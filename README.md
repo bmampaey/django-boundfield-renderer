@@ -6,6 +6,9 @@ There are already many libraries to render Django forms in templates, including 
 
 This library defines one or more registry, that associate a rendering function (called renderer) for each form field class. That rendering function is made available through the templatetag `renderer`.
 
+## Installation
+Add `'boundfield_renderer'` to your INSTALLED_APPS setting so Django can find the templatetag `renderer`.
+
 ## Basic steps to render a Django Form
 ### Create a registry and register the renderers for the field classes
 For example, in the file *path/to/my_registry.py*
