@@ -6,7 +6,11 @@ from ..utils import template_renderer
 def get_widget(attrs = None):
 	'''Return the rendered widget with extra attrs'''
 	def render_widget(boundfield):
-		return boundfield.as_widget(attrs = attrs)
+		local_attrs = dict()
+		local_attrs.update(attrs)
+		if boundfield.errors:
+			local_attrs['class'] = ' '.join([local_attrs.get('class', ''), 'is-invalid'])
+		return boundfield.as_widget(attrs = local_attrs)
 	return render_widget
 
 # Create the registry with all Django built-in form fields
