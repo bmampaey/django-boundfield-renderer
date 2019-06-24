@@ -7,7 +7,8 @@ def get_widget(attrs = None):
 	'''Return the rendered widget with extra attrs'''
 	def render_widget(boundfield):
 		local_attrs = dict()
-		local_attrs.update(attrs)
+		if attrs:
+			local_attrs.update(attrs)
 		if boundfield.errors:
 			local_attrs['class'] = ' '.join([local_attrs.get('class', ''), 'is-invalid'])
 		return boundfield.as_widget(attrs = local_attrs)

@@ -1,4 +1,7 @@
 # Release Notes
+## 1.4 (June 24, 2019)
+ * In bootstrap4 registry, fixed bug when no attrs was passed to get_widget
+
 ## 1.3 (June 20, 2019)
  * Added release notes
  * Added installation instruction to the README
